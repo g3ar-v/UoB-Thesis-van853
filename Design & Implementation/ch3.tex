@@ -12,7 +12,7 @@ Why NodeJS?
 It's really good at handling simultaneous connections. In this project we're sending and receiving data from the database, the flask server and the front-end
 
 Why python?
-python has a library for the fingerprint module(Mega 2560 R3) I used. It also had a library for the raspberry pi(RC522)
+python has a library for the fingerprint module(Mega 2560 R3) I used. It also had a library for the raspberry pi(RC522) and how easy it is to write and test code.
 
 Interfaces?
 USB-UART Converter 6-in-1 research
@@ -26,4 +26,6 @@ I went with a website because it's easy to access from anywhere that has an inte
 
 Single Web Applicaton
 
-I first thought about the languages and frameworks I would like to use. For the website (React), the webserver (Node), and RFID and Fingerprint (Python). 
+I first thought about the languages and frameworks I would like to use. For the website (React), the webserver (Node), and RFID and Fingerprint (Python). After that, I took into account the specification of the project; the software design process, 
+
+At first I wanted to call each python scripts from the webserver but I ran into a series of errors coming from Raspberry pi not being able to grant access for that, and then I found out how to use flask and I came up with the idea of calling these scripts from a http endpoint of the flask server.
