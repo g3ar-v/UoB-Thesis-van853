@@ -1,8 +1,29 @@
 \chapter{Design and Implementation}
 While working on this project, I used the agile development, why> because the design and implementations of embedded devices such as the fingerprint and RFID is uncertain.  initially I wanted to use a desktop application because 
 
+during my research I got inquiries from MozillaWebDoc
 
-\subsubsection{Approach}
+API
+
+
+Why ReactJS?
+
+Why NodeJS?
+It's really good at handling simultaneous connections. In this project we're sending and receiving data from the database, the flask server and the front-end
+
+Why python?
+python has a library for the fingerprint module(Mega 2560 R3) I used. It also had a library for the raspberry pi(RC522)
+
+Interfaces?
+USB-UART Converter 6-in-1 research
+
+\section{Approach}
+
+I decided to go with Full Stack development. why? to understand and solidify my background in the fundamentals of web development. 
 
 I divided this system into components 
 I went with a website because it's easy to access from anywhere that has an internet connection and each part of the system can access each other cause they are all connected to the internet. 
+
+Single Web Applicaton
+
+I first thought about the languages and frameworks I would like to use. For the website (React), the webserver (Node), and RFID and Fingerprint (Python). 
