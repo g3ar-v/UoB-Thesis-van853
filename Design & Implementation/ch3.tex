@@ -15,17 +15,27 @@ Why python?
 python has a library for the fingerprint module(Mega 2560 R3) I used. It also had a library for the raspberry pi(RC522) and how easy it is to write and test code.
 
 Interfaces?
-USB-UART Converter 6-in-1 research
+ research
 
 \section{Approach}
 
-I decided to go with Full Stack development. why? to understand and solidify my background in the fundamentals of web development. 
+I decided to go with Full Stack development. why? to understand and solidify my background in the fundamentals of web development. I decided to use an adaptation of the MERN stack which replaces the MongoDB with Azure to have the relational database.
 
+\newacronym{MERN}{$MERN$}{MongoDB, Express, ReactJS, NodeJS}
 I divided this system into components 
 I went with a website because it's easy to access from anywhere that has an internet connection and each part of the system can access each other cause they are all connected to the internet. 
 
 Single Web Applicaton
 
+Why a relational database?
+
 I first thought about the languages and frameworks I would like to use. For the website (React), the webserver (Node), and RFID and Fingerprint (Python). After that, I took into account the specification of the project; the software design process, 
 
-At first I wanted to call each python scripts from the webserver but I ran into a series of errors coming from Raspberry pi not being able to grant access for that, and then I found out how to use flask and I came up with the idea of calling these scripts from a http endpoint of the flask server.
+I focused on writing a script for the RFID to read information 
+I researched on python libraries for RFID 
+
+
+At first I wanted to call each python scripts from the webserver but I ran into a series of errors coming from Raspberry pi not being able to grant access for that, and then I found out how to use flask and I came up with the idea of running these scripts from a http endpoint of the flask server.
+
+The database was difficult and complex because of the relationships between different tables. In my database to access it in multiple devices, raspberry and my development computer, I needed it to be hosted on the internet and that is where Azure came to play. When that was done, I created the student table with:
+
