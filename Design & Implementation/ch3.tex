@@ -58,16 +58,24 @@ The InProgress page comprises of a timer, a "Stop Track" button and a UserView t
 
 
 \subsubsection{Analytics page}
+The Analytics page contains the Attendance status of the event that was tracked and a pie chart diagram that shows the percentage of student who attended that session.
 
 
 
 
 
 \subsection{Web server - NodeJS}
-NodeJS is really good at handling simultaneous connections. In this project we're sending and receiving data from the database, the flask server and the front-end and sometimes they are concurrently.
+NodeJS is really good at handling simultaneous connections. In this project we're sending and receiving data from the database, the flask server and the front-end and sometimes they are concurrently. Tedious is a package that allows the implementation of TDS which is a protocol used to interact with SQL server, this allows me interact with the azure database.
+The reason express is used in my project is to mount a middleware at the router-level, this allows me to handle multiple request and responses to multiple end-points with one single mounted root path. 
 
 Requests and responses handled by the express middleware;
+\begin{itemize}
+    \item receiveDate: a POST request that sets the date received from the client
+    \item sendEvent: this runs a query to the database that 
+\end{itemize}
 
+\newacronym{TDS}{$TDS$}{Tabular Data Stream}
+\glsadd{TDS}
 \subsection{Raspberry pi}
 I focused on writing a script for the RFID to read information from the RFID tags, when I finished that, I wrote a script to 
 I researched on python libraries for RFID
