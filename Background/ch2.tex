@@ -5,9 +5,21 @@ The system is split into three different parts, the website, raspberry pi and th
   \item Azure sql database
 \end{itemize}
 \section{Website}
-A website is often confused with a webpage or a web server. From mozillaWebDoc, A website is a collection of web pages which are grouped together in various ways. A web server hosts websites and their supporting files are available on the that computer. 
-How do they talk to each other?
+A website is often confused with a webpage or a web server. From mozillaWebDoc, A website is a collection of web pages which are grouped together in various ways. A web server is a computer that hosts websites and their supporting files, which are available on that computer. From a web developer point of view the webpages are known as the clients while the web servers are known as the servers. The clients are copies downloaded from the server
+
+
+\subsection{Communication between clients and servers}
+\begin{itemize}
+  \item \textbf{Internet Connection}: This enables the transmission of data between clients and server
+  \item \textbf{TCP/IP}: these are communication protocols that define how data should be transmitted on the internet. IP handles the delivery of packets of information from source to destination, TCP handles the management of these packets by joining them together in their righ t order and also asks for missing packets to be resent, this retransmission causes latency. 
+  \item \textbf{HTTP}: an application layer protocol that determines how clients and server communicate.
+\end{itemize}
+
 A website talks to the web server using an API, which is a connection between to computer programs. It could be referred also as the specification or as the implementation, the specification has to do with a document that demonstrates how to use or create a connection. Examples of API specifications used in this project are; tedious for the database connection to azure, express as a middleware. 
+\newacronym{HTTP}{$HTTP$}{Hypertext Tranfer Protocol}
+\glsadd{HTTP}
+\newacronym{TCP}{$TCP$}{transmission Control Protocol}
+\glsadd{TCP}
 
 \newacronym{API}{$API$}{Application Programming Interface}
 \glsadd{API}
@@ -32,7 +44,7 @@ The RFID card interfaces with the raspberry-pi with SPI communication but is als
   \caption{SPI master slave architecture}
 \end{figure}
 
-\newacronym{1\textsuperscript{2}C}{$12C$}{Inter-Integrated Circuit}
+\newacronym{12C}{$12C$}{Inter-Integrated Circuit}
 \glsadd{12C}
 \newacronym{SPI}{$SPI$}{Serial Peripheral Interface}
 \glsadd{SPI}
@@ -68,7 +80,7 @@ RFID tags are classified by their frequencies, the four primary frequency ranges
 \newacronym{PCD}{$PCD$}{Proximity coupling device}
 \glsadd{PCD}
 
-\newacronym{PICC}{$PICC$}{Proximity Integrated Circuit Card}
+\newacronym{PICC}{$PICC$}{Proximity Integrated circuit card}
 \glsadd{PICC}
 The system consists of two main components, a transponder/tag and a transceiver/reader or a PCD and a PICC as defined in ISO 14443. The transceiver creates a 13.56MHz electromagnetic field that communicates with the tag. 
 This project uses a High Frequency passive card with Type A communication defined in ISO-14443, passive meaning, the tags only function when they acquire signals from a reader and relay an information-carrying signal back to the reader. 
@@ -82,21 +94,21 @@ RFID uses electromagnetic fields to detect
 
 
 
-\subsection{Fingerprint - R3}
-The Fingerprint interfaces with the Raspberry pi with UART communication, it is a devices that supports asynchronous serial communication, which is a form of serial communication that doesn't require a clock signal and is not constantly synchronized. 
-
-Raspberry pi supports asynchronous communication but with a lot of fingerprints having distinct voltages, I used a USB to UART Converter which supports both 3.3v and 5v although the R3 is 3.3v. The TX pin goes to RX pin and vice versa in the connection between the converter and fingerprint module.
-
-the logical signals used in the UART converter are:
+\subsection{Fingerprint - JM-101}
+The JM-101 comes with a flash memory to store the fingerprints, it has a storage capacity of over. 
+\subsubsection{Interfacing with Raspberry pi}
+The Fingerprint interfaces with the Raspberry pi with UART communication, it is a devices that supports asynchronous serial communication, which is a form of serial communication that doesn't require a clock signal and is not constantly synchronized. Raspberry pi supports asynchronous communication but with a lot of fingerprints having distinct voltages, I used a USB to UART Converter which supports both 3.3v and 5v although the JM-101 is 3.3v. The TX pin goes to RX pin and vice versa in the connection between the converter and fingerprint module. The USB to UART Converter goes into the USB port of the raspberry pi while its pins are connected to the pins of the fingerprint module.
+The pins used in interfacing with the UART converter are:
 \begin{itemize}
-  \item GND:
+  \item GND: ground connection
   \item RXD: the receiver of data
   \item TXD: transmits data
   \item 3V3: powers the fingerprint module
 \end{itemize}
 
-operations of fingerprint module:
-
+\subsubsection{Operations of fingerprint module}
+Fingerprint processing can either be for enrollment or matching,  
+A matching algorithm is used to compare fingerprint templates stored in the flash memory with the one read by the fingerprint module. For the 
 
 \newacronym{UART}{$UART$}{Universal Asynchronous Receiver-Transmitter}
 \glsadd{UART}
