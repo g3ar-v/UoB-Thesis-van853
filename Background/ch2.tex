@@ -1,29 +1,27 @@
+
 \chapter{Background}
-The system is split into three different parts, the website, raspberry pi and the cloud(Azure), these are also split in their respective parts with website containing the web server(node) and the site(React), the Cloud; 
-\begin{itemize}
-  \item Azure sql server
-  \item Azure sql database
-\end{itemize}
+The monitoring system is split into three different parts which includes the website, raspberry pi and the cloud(Azure). These are also split in their respective parts with the website containing the web server(node) and the site(React), the Cloud; Azure sql server and Azure sql database
+ 
 \section{Website}
-A website is often confused with a webpage or a web server. From mozillaWebDoc, A website is a collection of web pages which are grouped together in various ways. A web server is a computer that hosts websites and their supporting files, which are available on that computer. From a web developer point of view the webpages are known as the clients while the web servers are known as the servers. The clients are copies downloaded from the server
-
-
+A website is often confused with a web page or a web server. From mozillaWebDoc, A website is a collection of web pages which are grouped together in various ways. A web server is a computer that hosts websites and their supporting files, which are available on that computer. From a web developer point of view the webpages are known as the clients while the web servers are known as the servers. The clients are copies downloaded from the server
+ 
+ 
 \subsection{Communication between clients and servers}
 \begin{itemize}
-  \item \textbf{Internet Connection}: This enables the transmission of data between clients and server
-  \item \textbf{TCP/IP}: these are communication protocols that define how data should be transmitted on the internet. IP handles the delivery of packets of information from source to destination, TCP handles the management of these packets by joining them together in their righ t order and also asks for missing packets to be resent, this retransmission causes latency. 
-  \item \textbf{HTTP}: an application layer protocol that determines how clients and server communicate.
+ \item \textbf{Internet Connection}: This enables the transmission of data between clients and server
+ \item \textbf{TCP/IP}: These are communication protocols that define how data should be transmitted on the internet. IP handles the delivery of packets of information from source to destination while TCP handles the management of these packets by joining them together in their right order and also asks for missing packets to be resent, this retransmission causes latency.
+ \item \textbf{HTTP}: This is an application layer protocol that determines how clients and server communicate.
 \end{itemize}
-
-A website talks to the web server using an API, which is a connection between to computer programs. It could be referred also as the specification or as the implementation, the specification has to do with a document that demonstrates how to use or create a connection. Examples of API specifications used in this project are; tedious for the database connection to azure, express as a middleware. 
-\newacronym{HTTP}{$HTTP$}{Hypertext Tranfer Protocol}
+ 
+A website talks to the web server using an API, which is a connection between computer programs. It could be referred also as the specification or as the implementation, the specification has to do with a document that demonstrates how to use or create a connection. Examples of API specifications used in this project are; tedious for the database connection to azure, express as a middleware.
+\newacronym{HTTP}{$HTTP$}{Hypertext Transfer Protocol}
 \glsadd{HTTP}
 \newacronym{TCP}{$TCP$}{transmission Control Protocol}
 \glsadd{TCP}
-
+ 
 \newacronym{API}{$API$}{Application Programming Interface}
 \glsadd{API}
-
+ 
 \section{Raspberry-pi}
 A portable computer with 40 GPIO pins, running raspbian OS similar to most linux distro's. 
 GPIO is an uncommitted digital pin on an electronic circuit board which may be used as input or output or both, and can be configured by the user at runtime[6]. This GPIO allows to interface with different modules. A module here is a small unit that can be integrated into a larger system but also maintained separately with no effect on the system. It is of a "plug-in" functionality.

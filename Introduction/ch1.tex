@@ -4,42 +4,35 @@ Right from the moment we(humans) discovered the need to keep track of attendance
 
 \section{Project Aims}
 
-The aim of this project is to build a attendance monitoring system that is able to track attendance with a diverse number of methods while also being able to this with unreliable internet connectivity. 
-
-The main evaluation criteria
+The aim of this project is to build an attendance monitoring system that is able to track attendance with a diverse number of methods and to render a novel solution to the argument of "Inefficiency in attendance monitoring systems". The focus will be on integrating this system to use an RFID system, a manual website method and a fingerprint for tracking attendance while also monitoring attendance with an unreachable database or a short lapse in internet connectivity. The evaluation criterias of this system will be based on its abilitiy; 
+\begin{itemize}
+  \item to track attendance with any of the referred methods,
+  \item to handle the exceptions of the internet or database connection problem.
+  \item to show results based on each attendance class
+\end{itemize} 
+This project also aims to give the administrator remote access to the RFID and fingerprint systems from anywhere in the world theoretically based on its design and implementation. The results will be determined by the use of a dummy dataset, rfid tags enrolled with these datasets and fingerprints of certain individuals.
 \newacronym{IoT}{$IoT$}{Internet of Things}
 \glsadd{IoT}
-
 \newacronym{RFID}{$RFID$}{Radio-Frequency Identification}
 \glsadd{RFID}
-
 \section{Related Works} 
-These are ways most authors have used to solve the issue of inefficiency in attendance monitoring systems.
-\subsection{General texts}
-The authors think it is a waste of time monitoring both body temperature and attendance in schools which is a problem caused by the COVID-19 pandemic, and seeks to join these two systems to monitor attendance as well as monitor body status and store the data to be accessed remotely across the globe\cite{KaziARP}. This influenced the merging of multiple attendance methods in my work.
-The author proposed a smart attendance to evade the use of manual attendance system and reduce manual work of teachers and administrators, by building a system that monitors attendance with passive RFID and sends the data attained to the Cloud.
-The authors seek to create a fast, automated, reliable and accurate system that monitors attendance by reading tags in the lecture room using an Ultra-High frequency reader and a middleware to sort, convert and relay data to the database system\cite{Www2012}. 
-The author proposes a system that effectively and efficiently monitors attendance monitors with a website and RFID reader using an MQTT protocol and a NodeMCU firmware with the aim of eradicating manual attendance saving cost\cite{Bhagat2020}.
-The author proposes fingerprint based biometric attendance system that monitors attendance and prevents giving proxy i.e when someone scans attendance for someone else, the data is stored in an SD card and later extracted. 
+An agreement is sighted in most of the literature works that manual attendance is time-consuming, prone to mistakes and insecure. These are ways these literatures have used to solve the issue of inefficiency in attendance monitoring systems.
 
-The author seeks to solve student performance by designing an efficient algorithm that detects and 
+There exists some papers which have used RFID as a means to solve this issue;
+\cite{KaziARP} considers it a waste of time monitoring both body temperature and attendance in schools which was a problem caused by the COVID-19 pandemic, and seeks to join these two systems to monitor attendance using RFID as well as monitor body status and store the data to be accessed remotely across the globe. This influenced the merging of multiple attendance methods in my work,
+The author proposed a smart attendance system that is appropriate to evade the use of manual attendance system and reduce manual work of teachers and administrators, by building a system that monitors attendance with passive RFID and sends the data attained to the Cloud, a GPS system is also used to get live location of the student\cite{Tt2021}, The authors seek to create a fast, automated, reliable and accurate system that monitors attendance by reading tags in the lecture room using an Ultra-High frequency RFID reader and a middleware to sort, convert and relay data to a database system\cite{Www2012}, The author proposes a system that effectively and efficiently monitors attendance monitors with a website and RFID reader using an MQTT protocol and a NodeMCU firmware with the aim of eradicating manual attendance saving cost\cite{Bhagat2020}.
+Some of these works also solve the issue by using fingerprint as a method of tracking;
+The author proposes fingerprint based biometric attendance system that monitors attendance and prevents giving proxy i.e. when someone scans attendance for someone else, the data is stored in an SD card and later extracted, it also talks about the reliability and security of a system to prohibit truancy and develops a solution to stop it, Fingerprint is used as a tracking method because it's more reliable, accurate and cost effective, this is based on the fact that every individual has a unique fingerprint, a GSM system is put in place to alert guardians, if a student doesn't attend\cite{soe2018implementation}. A limitation of this solution, it's not automated, teacher or an authorized has to get SD card from micro controller to store attendance in database.
 
+The author seeks to reduce the entire time taken to capture attendance of students in a class by designing a portable device that is circulated around the class room for students to mark their attendance, the device is a cloud-based system that relies on a fingerprint scanner, Web application to track attendance, it also report absentees to their guardians using SMS and a mobile application for students to see their attendance record. The fingerprint module uses MQTT as a means of communicating with its Web application.\cite{Rachna}. It seems that the author aims to solve attendance by proxy since only people in the room can sign in as present. The issue with this is automation, having a large amount of students circulating this device round might not seem efficient. In the authors future remarks he states a future device that operates in an offline mode which stores the attendance locally when there is no network connectivity and transfers it to the cloud when there is a connection, having read some literatures of this field, this is the only paper that talks about this implementation and it doesn't implement it. I sought to implement this which stores a temporary file directory on the raspberry pi before being sent to the database.
 
-\subsubsection{Theoretical Approaches}
-With the currently existing projects and literature in this field, a lot of the authors centralize on the inefficiency of attendance monitoring system based on the previous methods used and devise new methods as a solution[1,2 and more]. 
+With the currently existing projects and literature in this field, a lot of the authors centralize on the inefficiency of attendance monitoring system based on the previous methods used and devise new methods as a solution\cite{soe2018implementation, Rachna, Bhagat2020, Www2012, KaziARP, Tt2021}
 
-\subsubsection{Empirical Research}
-[2] talks about the reliability and security of a system to prohibit truancy and develops a solution to stop it, Fingerprint is used as a tracking method because it's more reliable, accurate and cost effective (explain) and a GSM to alert guardians, if a student doesn't attend.
+it seems there is a trade between security and automation.
 
-A limitation of this solution, it's not automated, teacher or an authorized has to get SD card from micro controller to store attendance in database.
-
-
-\subsection{Central texts}
-
-In as much as efficiency is quite the central theme in these literatures, I see only one solution being applied in these literatures and that has to do with using a more efficient method, why not use multiple methods for different scenarios, in some cases some methods might be more efficient in taking attendance and having them integrated makes the system flexible and better or even more efficient(in theory) in tracking attendance.
+In as much as efficiency is quite the central theme in these literatures, It has been noted that only one solution is being applied in several of these literatures and that has to do with using a more efficient method, my argument is, "why not use multiple methods for different scenarios"?, in some cases some methods might be more efficient in taking attendance and having them integrated makes the system flexible and better or even more efficient(in theory) in tracking attendance. There exist a paper that implements this by using NFC and fingerprint to monitor attendance as a means to curb truancy while providing reliable information on student attendance from a component called the back office
 
 In "An Investigation on the viability of using IoT for student survey and attendance monitoring"[4]
 
 
 
-A solution of mine was gotten from [3],which stores a temporary file directory before being sent to the database.
