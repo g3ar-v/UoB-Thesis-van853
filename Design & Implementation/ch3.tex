@@ -1,28 +1,118 @@
+\newacronym{JSON}{$JSON$}{JavaScript Object Notation}
+\glsadd{JSON}
+\newacronym{TDS}{$TDS$}{Tabular Data Stream}
+\glsadd{TDS}
+\newacronym{MERN}{$MERN$}{MongoDB, Express, ReactJS, NodeJS}
+\glsadd{MERN}
 \chapter{Design and Implementation}
-While working on this project, I used the agile development, because the design and implementations of embedded devices such as the fingerprint and RFID is uncertain. I initially wanted to use a desktop application because 
 
-Why NodeJS?
+While working on this project, my aims were;
+\begin{itemize}
+  \item Design a website that has buttons
+  \item This website should start the python scripts
+  \item The rfid and fingerprint when 
+\end{itemize}
+Attendance is monitored based on this cases
+\begin{itemize}
+  \item Mark attendance on entry only 
+  \item Mark attendance on entry and exit 
+  \item Mark attendance with fingerprint
+  \item Mark attendance with RFID
+  \item The rfid and fingerprint when 
+\end{itemize}
+
+I used the agile development, because the design and implementations of embedded devices such as the fingerprint and RFID is uncertain. I initially wanted to use a desktop application because 
+
+
+initially there was no LED but this prevented me from knowing what was the status of the RFID 
+\section{Design}
+\begin{figure}[ht]
+  \includegraphics[scale=0.56]{Design & Implementation/images/system architecture.jpg}
+  \caption{System architecture}
+\end{figure}
+I divided this system into components 
+I went with a I first thought about the languages and frameworks I would like to use. For the website (React), the web server (Node), and RFID and Fingerprint (Python). After that, I took into account the specification of the project; the software design process,
+I started with wireframe diagrams and pictures of each pages and their functions, an example of this is, figure ~\ref{fig:database_design.png}. I decided to go with Full Stack development, to understand and solidify my background in the fundamentals of web development. I decided to use an adaptation of the MERN stack which replaces the MongoDB with Azure to have a relational database.
+
+\subsection{website}
+A website because of it's easy access from anywhere that has an internet connection and each part of the system can access each other cause they are all connected to the internet.
+All the pages have a dashboard that acts as a navigation bar to get to different web pages. 
+
+\subsection{database}
+Initially this was a design of how the database would look like.
+\begin{figure}[ht]
+  \includegraphics[scale=0.4]{Design & Implementation/images/database_design.png}
+  \caption{database design}
+  \label{fig:database_design.png}
+\end{figure}
+\subsubsection{students}
+For a student table, I split the first and last name based? the studentID is the primary key and the rfid\_uid and tag\_id are the values gotten from the rfid tag, the rfid\_uid is a random string generate in the \textit{rfid\_enrollment.py} which joins the first name , a random character from "A-Z", the last name and a random four-number string as a way to ensure security. The tag\_id is an immutable string that identifies the tag. This two fields are used to validate the rfid tags on the python scripts. The fingerprintID column contains the position of the fingerprint template stored in fingerprint module memory, a phonenumber column and email column also for identification and other functions.
+\subsubsection{ClassSchedule}
+\subsubsection{modules}
+\subsubsection{module\_enrollment}
+This is necessary based on the relationship between the student and modules, 
+\subsubsection{dateDimension}
+This provides a support for the time schedule used in \textit{ClassSchedule} provides attributes needed 
+
+\subsection{raspberry pi}
+\textbf{Why the raspberry pi?} for this project it was appropriate to use a microprocessor rather than a microcontroller. A microprocessor has a combination of prebuilt modules like a wifi chip, ethernet, bluetooth there's no need for external components although the necessar external components can be interfaced with the GPIO pins, it is also capable of running multiple tasks simultaneously which is a requirement of this system. A microcontroller like arduino uses a flash memory of 32KB, it would be impossible to store temporary database files that are required for the database exception handling because these are large data files with respect to the flash memory size where as a raspberry pi could use an SD Card with a much larger size.
+
+An RFID is much more preferred because it identify tags without direct line of sight in contrast with the Barcodes, It is faster compared to other tracking methods.
+
+A major reason why I decided to use flask is because it creates a local server in python, so I don't have to run python scripts in a different language or use an external framework, it is also a minimal framework and would be lightweight on the raspberrypi making it have a much faster response, important scripts created, 
+\begin{itemize}
+  \item \textit{rfid\_search.py}: this handles the rfid attendance tracking by first connecting to the database, then querying the database for a list of students who are intended for a particular module and stores the returned values in a global list variable. The script checks for the choice of tracking, if;
+  \begin{itemize}
+    \item \textbf{markEntry}: inside a while loop, an rfid reader function from the SimpleMFRC522 module, it tries to read a tag, when a tag is closeby, it gets the tags information and checks if the information is found in the database list, if it is found it gets the studentID and stores this in the database table and on a counter so that it does not get inserted into the database if it is scanned again, an LED response is used for each different outcomes that take place: a green light for when a tag has been scanned successfully, a blue for when a tag has already been scanned and red for when a tag is not recognized or is not in the module.
+    \item \textbf{markBoth}: inside a while loop, the rfid reader function tries to read a tag and waits for one to be closeby, if a tags is scanned it checks if it is in the database list, if it is in the database it checks if that tag has already been scanned before by checking its counter value, if;
+    \begin{itemize}
+      \item \textbf{counter = 0}: an LED response with a green light, and the counter value is incremented by one
+      \item \textbf{counter = 1}: an LED response with a green light blinking twice, the counter value is incremented by one, the students rfid information are sent to the database
+      \item \textbf{counter = 2}: a blue light LED response to show that the tag has been scanned more than two times.
+    \end{itemize}
+    An else statement if rfid tag could not be recognized is used to show a status if the \textit{if} block case was not met. A red light LED response is used. 
+  \end{itemize}
+  \item \textit{fingerprint\_search.py}: 
+\end{itemize}
+
+
+
+\section*{Problem Analysis}
+
+\subsection*{Running python scripts}
+At first what I knew from research was that you could create python scripts for fingerprints and RFID modules to run and I did that, the problem was getting the NodeJS server to run these scripts.The first method I tried already had a loophole coming from the fact that the python script was on thesame computer as the nodeJS server, I wanted to run it remotely from the raspberry pi. With some more research I noticed that if I used a local server on the raspberry pi, I could run a script from the server by creating a child process. This is perfect because it allows you to encapsulate the scripts and access them from endpoints.
+
+\subsection*{Handling Database and Internet exception?}
+This is implemented in the attendance tracking scripts by catching a database or internet connection error by enclosing the connection codes in a try block
+if after internent works and after class ends delete file
+if database is off// internet
+
+- scan all tags
+- convert file in python to csv
+- validate when database is back on
+- csv to sql query database
+
+Get request from calendar and send it to backend
+
+Get response of post from backend and serve it on event view
+How to run python scripts from Node server?
+
+
+Switching between fingerprint and rfid on the website?
+I used an object to 
+
 
 Why python?
 python has a library for the fingerprint module(R3) I used. It also had a library for the raspberry pi(RC522) and how easy it is to write and test code.
 
 Interfaces?
- research
+research
+\subsection*{Using the fingerprint module to track students}
+The fingerprint module 
 
-An RFID is much more preferred because it identify tags without direct line of sight in contrast with the Barcodes, It is faster compared to other tracking methods 
-
-\section{Approach}
-
-I decided to go with Full Stack development, to understand and solidify my background in the fundamentals of web development. I decided to use an adaptation of the MERN stack which replaces the MongoDB with Azure to have a relational database.
-
-\newacronym{MERN}{$MERN$}{MongoDB, Express, ReactJS, NodeJS}
-\glsadd{MERN}
-I divided this system into components 
-I went with a website because it's easy to access from anywhere that has an internet connection and each part of the system can access each other cause they are all connected to the internet. I first thought about the languages and frameworks I would like to use. For the website (React), the web server (Node), and RFID and Fingerprint (Python). After that, I took into account the specification of the project; the software design process,
+\section{Implementation}
 
 \subsection{Website - ReactJS}
-Why ReactJS?
-I started with wireframe diagrams and pictures of each pages and their functions, All the pages have a dashboard that acts as a navigation bar to get to different web pages. 
 
 \subsubsection{Main page}
 \begin{figure}[ht!]
@@ -41,7 +131,7 @@ Clicking the "trackAtt." header takes you to the main page.
   \includegraphics[scale=0.135]{Design & Implementation/images/Attendance.png}
   \caption{Attendance page.}
 \end{figure}
-The attendance page is mainly gotten to by the "Set options" button of the EventView, if directed to by the dashboard, it should show a list of events to track based on a picker. I couldn't develop this due to time. The main components of the Attendance page are the EventView but without a set options button. Attendance methods with RFID and fingerprint buttons, Attendance options with "mark only Entry" and "mark both Entry and Exit", a "Manual" button and a "Start Track" button. The functions of these components are;
+The attendance page is mainly gotten to by the "Set options" button of the EventView. If directed to by the dashboard, it should show a list of events to track based on a date picker. I could not develop this due to time. The main components of the Attendance page are the EventView but without a set options button. Attendance methods with RFID and fingerprint buttons, Attendance options with \textit{mark only Entry} and \textit{mark both Entry and Exit}, a \textit{Manual} button and a \textit{Start Track} button. The functions of these components are:
 
 \begin{itemize}
   \item EventView: displays information on the Event requested before by the CalendarView, gets a JSON response from the server and formats the 
@@ -50,8 +140,6 @@ The attendance page is mainly gotten to by the "Set options" button of the Event
   \item Start Track button: starts the tracking method with the attendance options chosen and also redirects to the "InProgress" page.  
 \end{itemize}
 
-\newacronym{JSON}{$JSON$}{JavaScript Object Notation}
-\glsadd{JSON}
 
 \subsubsection{InProgress page}
 The InProgress page comprises of a timer, a "Stop Track" button and a UserView that shows a list of Students that are required for that module. initially I thought of displaying a list that refreshes every minute but did not because I thought this would be quite distractive to the admin while he's using the system for a different action. 
@@ -90,8 +178,6 @@ These are the major requests and responses handled by the express middleware;
 
 
 
-\newacronym{TDS}{$TDS$}{Tabular Data Stream}
-\glsadd{TDS}
 \subsection{Raspberry pi}
 I focused on writing a script for the RFID to read information from the RFID tags, when I finished that, I wrote a script to 
 I researched on python libraries for RFID
@@ -102,15 +188,10 @@ At first I was thinking of
 how I used the fingerprint with its flaws
 
 \subsection{Flask}
-A major reason why I chose to use flask is because it creates a local server in python, so I don't have to run python scripts in a different language or use an external framework for this.
+
 These are the major requests and responses handled by the flask functions and endpoint.
 
 
 
 \subsection{Database}
 The database was difficult and complex because of the relationships between different tables, I spent 60\% of my time updating it to fit other parts of the project. I needed it to be hosted on the internet to access it on multiple devices, raspberry and my development computer, At first I used a local MySQL database on my computer but had an issue hosting this on the internet, I switched to Azure because it offered a lot more of other cloud computing services. I created the student table with:
-
-\begin{figure}[ht]
-  \includegraphics[scale=0.4]{Design & Implementation/images/database_design.png}
-  \caption{database design}
-\end{figure}

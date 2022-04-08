@@ -1,3 +1,46 @@
-\chapter{Results}
-\section{Actions}
-\section{Real World Testing}
+\chapter{Evaluation \& Discussion}
+As stated in the Introduction, for an evaluation of this project we have to consider theses criterias. 
+
+\section{Technical}
+
+To track attendance with any of the referred methods,
+to handle the exceptions of an unavailable internet or database connnection, to show results based on each attendance class. 
+Since this system was based on 
+
+\subsubsection{Features not implemented}
+
+I did not implement the sign-in page and the login page,
+I did not host the server on the internet.
+I did not implement this for seperate lecturers although I have a database table with dummy data set for lecturers.
+I could have implemented marking attendance using both fingerprint and RFID at the same time. 
+A website page that adds users to the database with their rfid userID values and their fingerprint
+
+\subsection{Challenges faced}
+Having no knowledge on JavaScript it was an issue learning the concept of React and Node, and no idea of how a embedded devices communicate with each other.
+
+\subsection{Lessons learnt}
+There are a lot of implementations required on a webpage I went with the requirements for my prototype based on the time I had. 
+
+\section{Results}
+To test this system I created a dummy dataset for the database, the database is used to give an identity to the RFID tag or an individuals fingerprint. 
+A really good aspect of this work is the ability for the administrator to have a remote access to the flask server therefore starting attendance for a system anywhere. 
+
+Over
+
+\section{Discussion and Future Improvements}
+
+Overall, this project achieved its aim of implementing an Attendance monitoring system that (does what it does). However, the uniqueness of this system can be extended.
+
+Firstly by adding/integrating more tracking methods for different scenarios efficiency will no longer be a problem.
+A QR code method that uses geo-location on the mobile application, that checks location before scanning QR code.
+
+As much as RFID has a simpler implementation, it comes with a lot of limitations. It's easy to fool the system. In the near-future having a virtual NFC card just like bank cards in phones will be way more safer with respect to the system.
+
+The timer on the website alongside with the allocated time from the database will be used to validate how long the class was held along other things.
+
+Having all these methods run concurrently, would be nice
+Having multiple administrators use this system asynchronously.
+
+An AI based recommendation to lecturers on what attendance tracking methods to be used based on the circumstances of the event.
+
+More response systems other than the LED signals to really know understand the outcome of each reading, an LED screen with the name of the student, a sound for each outcome.
