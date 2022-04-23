@@ -1,46 +1,56 @@
 \chapter{Evaluation \& Discussion}
-As stated in the Introduction, for an evaluation of this project we have to consider theses criterias. 
-
-\section{Technical}
-
-To track attendance with any of the referred methods,
-to handle the exceptions of an unavailable internet or database connnection, to show results based on each attendance class. 
-Since this system was based on 
-
-\subsubsection{Features not implemented}
-
-I did not implement the sign-in page and the login page,
-I did not host the server on the internet.
-I did not implement this for seperate lecturers although I have a database table with dummy data set for lecturers.
-I could have implemented marking attendance using both fingerprint and RFID at the same time. 
-A website page that adds users to the database with their rfid userID values and their fingerprint
-
+As earlier stated in the Introduction, certain criteria need to be adopted for an evaluation of this project.
+\section{Evaluation}
+The criteria includes the suitability to track attendance with any of the referred methods, the efficiency in handling the exceptions of unavailable internet or database connection and the ability to show results based on each attendance class.
+\subsubsection{Features not implemented \& Limitations}
+The system uses just two methods of tracking attendance for now and only one is used at a time. Most of the features that were not implemented was as a result of time and its irrelevance to the aims of the projects. Some of the concepts that could be implemented include;
+\begin{itemize}
+\item A checker to see if the student has already been added to the database, this would not take much time to be executed.
+\item The design of the flask server  The flask server should not be used for production, as it is not designed to be stable, efficient or secure. It does not support all the features of a HTTP server
+\item The implementation of the sign-in page and the login page which was not done.
+\item The hosting of the NodeJS web server which was not hosted on the internet. The database was the only component of this system that was hosted because its resources were shared between the node webserver and the raspberry pi
+\item The implementation of a website page that adds users to the database with their RFID userID values and their fingerprint
+\item The system was not implemented to work asynchronously for separate lecturers although a database table with dummy data set for lecturers was established.
+\item The system is not designed to concurrently run the implemented attendance methods.
+\item Though the database and internet handler works there are some cases where a connection to the web server is limited. This might cause the system not to function effectively as each system can not communicate properly. The test for both handlers might be limited: the system might not function in certain circumstances. This is where the maintenance stage comes into place in agile development.
+\end{itemize} 
 \subsection{Challenges faced}
-Having no knowledge on JavaScript it was an issue learning the concept of React and Node, and no idea of how a embedded devices communicate with each other.
-
-\subsection{Lessons learnt}
-There are a lot of implementations required on a webpage I went with the requirements for my prototype based on the time I had. 
-
+Having no knowledge of JavaScript it was an issue learning the concept of React and Node, and no idea of how embedded devices communicate with each other. I had no idea of SQL at the beginning and had to learn the syntax. I had to develop three different systems independently for a certain period and integrate them together.
+\subsection{Skills \& Lessons learnt}
+There are a great deal of implementations required on a webpage. I went with the requirements for the project based on the time given. Initially having no idea of the web development cycle, focus was centred on irrelevant actions like authentication and style of UI. In the development most of the bugs come from missing out specific variables that are passed as JSON files between systems. A debugging system with a record on variables used would be efficient. A great deal of knowledge about methods embedded devices use to communicate between each other was learned. Valuable concepts and skills such as Latex, Python, JavaScript and SQL were acquired.
 \section{Results}
-To test this system I created a dummy dataset for the database, the database is used to give an identity to the RFID tag or an individuals fingerprint. 
-A really good aspect of this work is the ability for the administrator to have a remote access to the flask server therefore starting attendance for a system anywhere. 
+To test this system a dummy dataset was created for the database. The database was used to give an identity to the RFID tag or an individual's fingerprint. A noteworthy and significant aspect of this work is the ability for the administrator to have remote access to the flask server therefore being able to start attendance for the system from anywhere. The system solves all the issues raised in the Introduction. Additionally, the system can be adapted for other functions, such as attendance monitoring in work places. A JUnit or a similar software for this system was not used because it was difficult to test the whole system design. Furthermore, Postman was successfully used to test the API that was created.
+\subsection*{Test for handling Database connection}
+The test was conducted by pausing the azure database and running the python script solely: without it being called from the flask server. Pausing the database seemed to be a way to test this as it represents objectively, the errors obtained if there was a different cause in the communication between the database and the raspberry pi. The python script seemed to catch and handle the exception by scanning attendance, saving the scanned details in a file, validating and uploading the details from the file when the database was started. As was stated in the Limitations, there might be other factors to be considered to be caught but based on the requirements it works quite well.
+ 
+\subsection*{Test for handling Internet connection}
+This was conducted by running the internet handler script\textsuperscript{\ref{internet handler}} separately while switching off the WiFi. This worked effectively based on the constraints given. It caught the exception and handled it by running the offline tracking code. There might be some exceptions that were not handled. Testing the script with the system would require all parts of the system to be hosted on the internet. Due to time at hand this was not possible.
+ 
+\subsection*{Tracking with different choices and attendance methods}
+Tracking with different choices and methods was carried out in the course of research. This is the testing stage in the agile development work cycle. It involves testing, by running the system on the expected workflow that was discussed in the Design \& Implementation chapter.
+\subsubsection*{fingerprint attendance}
+The experiment involves raw fingerprints(from people) already enrolled into the database. For simplicity, the sum of three students used to represent a class. Their fingerprints were given the names: \textbf{A}, \textbf{B}, \textbf{C}. The two attendance choices were tested with the following cases; 
+\begin{itemize}
+ \item \textbf{mark on Entry only}: \textbf{A} was scanned twice to test both the green and blue responses. This was attained. However, a different fingerprint not enrolled in the module was scanned and produced the red LED response. Similarly, another that was not registered in the database was also scanned and produced the same result. \textbf{B} was scanned but \textbf{C} was not. This produced \textbf{A} and \textbf{B} present but \textbf{C} was absent.
+ \item \textbf{mark both Entry and Exit}: \textbf{A} was scanned once to test if it was going to be present on the attendance list. \textbf{B} was scanned thrice to test if it will be present on the attendance list and get the LED responses expected. A green LED response was given for the first two scans. The second response was distinct with respect to the number of times it blinked. A blue LED was given for the third scan. \textbf{C} was not scanned. A different fingerprint was scanned producing a red LED response. The result at the end was, \textbf{B} present. \textbf{A} and \textbf{C} were not.
+\end{itemize}
+ 
+\subsubsection*{rfid attendance}
+The \gls{RFID} tags were tested with \gls{RFID} tags already enrolled into the database. The class also contained the sum of three students. \gls{RFID} tags are given names: \textbf{A}, \textbf{B}, \textbf{C} for clarity in the explanation. The two attendance choices were tested with the following cases.
+\begin{itemize}
+ \item \textbf{mark on Entry only}: \textbf{A} was scanned twice to test both the green and blue responses. This was attained. A different tag not enrolled in the module was scanned. This produced the red LED response. Similarly, another tag that was not enrolled in the database was also scanned and produced the same result. \textbf{B} was scanned but \textbf{C} was not. This produced \textbf{A} and \textbf{B} present but \textbf{C} was absent.
+ \item \textbf{mark both Entry and Exit}: tag \textbf{A} was scanned once to test if it was going to be present on the attendance list. \textbf{B} was scanned thrice to test if it will be present on the attendance list and to obtain the LED responses. A green LED response was given for the first two scans. The second response was distinct with respect to the number of times it blinked. A blue LED was given for the third scan. \textbf{C} was not scanned. A different tag  not enrolled was scanned producing a red LED response. The result at the end was, \textbf{B} present. \textbf{A} and \textbf{C} were not.
+\end{itemize}
+ 
+\subsubsection*{manual attendance}
+The manual attendance was tested by running it on the systems workflow but clicking the manual button in the Attendance page. Three students were used. Two were clicked and in the Analytics page, those two were present while the other was not.
 
-Over
-
+ 
 \section{Discussion and Future Improvements}
+Overall, this project achieved its aim of implementing an Attendance monitoring system that monitors attendance with the use of RFID and fingerprint method while handling an inefficient internet connectivity. However, the uniqueness of this system can be extended by adding/integrating more tracking methods for different scenarios this will make for a more versatile system. Additionally, by incorporating A QR code method that uses geo-location on the mobile application and checks location before scanning QR code, the system could be further enhanced.  As much as RFID has a simpler implementation, it comes with a lot of limitations. It is easy to fool the system. However, in the near-future,  having a virtual NFC card just like bank cards in phones will be way more safer with respect to the system.The timer on the website along with the allocated time from the database will be used to validate how long the class was held among other things. Having all these methods run concurrently, would increase efficiency in terms of speed and flexibility as well as 
+having multiple administrators use this system asynchronously. An AI based recommendation could be sent to lecturers on what attendance tracking methods to be used based on the circumstances of the event. More response systems other than the LED signals could be integrated. However, to really know and understand the outcome of each reading, an LED screen with the name of the student and a sound for each outcome could be incorporated. Another concept would be integrating this into the canvas website used in schools in the UK. This would also help centralise all the data that can be viewed by the student. An adaptation of a microcontroller for this system could prove cost-effective on a long-term basis.
 
-Overall, this project achieved its aim of implementing an Attendance monitoring system that (does what it does). However, the uniqueness of this system can be extended.
+ 
+ 
+ 
 
-Firstly by adding/integrating more tracking methods for different scenarios efficiency will no longer be a problem.
-A QR code method that uses geo-location on the mobile application, that checks location before scanning QR code.
-
-As much as RFID has a simpler implementation, it comes with a lot of limitations. It's easy to fool the system. In the near-future having a virtual NFC card just like bank cards in phones will be way more safer with respect to the system.
-
-The timer on the website alongside with the allocated time from the database will be used to validate how long the class was held along other things.
-
-Having all these methods run concurrently, would be nice
-Having multiple administrators use this system asynchronously.
-
-An AI based recommendation to lecturers on what attendance tracking methods to be used based on the circumstances of the event.
-
-More response systems other than the LED signals to really know understand the outcome of each reading, an LED screen with the name of the student, a sound for each outcome.

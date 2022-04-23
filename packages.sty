@@ -22,11 +22,11 @@
 
 % Make chapter numbers into string words 1 -> ONE
 \usepackage{fmtcount}
-\makeatletter
-\renewcommand{\@makechapterhead}[1]{\vspace *{40\p@ }{\parindent \z@ 
-\raggedright \normalfont \ifnum \c@secnumdepth >\m@ne \Huge \bfseries 
-\@chapapp \space \Numberstring{chapter} \vskip 10\p@ \fi #1\par \nobreak \vskip 30\p@ }}
-\makeatother
+% \makeatletter
+% \renewcommand{\@makechapterhead}[1]{\vspace *{40\p@ }{\parindent \z@ 
+% \raggedright \normalfont \ifnum \c@secnumdepth >\m@ne \Huge \bfseries 
+% \@chapapp \space \Numberstring{chapter} \vskip 10\p@ \fi #1\par \nobreak \vskip 30\p@ }}
+% \makeatother
 
 \setlength{\marginparwidth}{0pt}
 \setlength{\marginparsep}{0pt}
@@ -49,11 +49,11 @@
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \cfoot{\thepage}
 
-% \usepackage{fancyhdr}
-%   \fancyfoot[C,CO]{\textbf{\thepage}}
-%   \pagestyle{plain}
-%   \renewcommand{\chaptermark}[1]{\markboth{\chaptername \ \thechapter \ \ #1}{}}
-%   \renewcommand{\sectionmark}[1]{\markright{\thesection \ \ #1}}
+\usepackage{fancyhdr}
+  \fancyfoot[C,CO]{\textbf{\thepage}}
+  \pagestyle{plain}
+  \renewcommand{\chaptermark}[1]{\markboth{\chaptername \ \thechapter \ \ #1}{}}
+  \renewcommand{\sectionmark}[1]{\markright{\thesection \ \ #1}}
 
 %
 % INDICES
@@ -68,9 +68,9 @@
 
 
 % To enable the bibliography
-\usepackage[refsection=part,citestyle=apa,style=numeric,natbib=true,backend=biber]{biblatex}
-
+\usepackage[refsection=part,citestyle=apa,style=numeric,natbib=true,backend=biber,sorting=none]{biblatex}
 \bibliography{bibliography}
+
 
 \usepackage{amsmath}
 \usepackage{ifpdf}
